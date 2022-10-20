@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  Blog |    NingQing</title>
+  <title>  去除桌面快捷图标 |    NingQing</title>
   <meta name="description" content="A minimalist theme for hexo.">
   <!-- 标签页图标 -->
   
@@ -119,57 +119,52 @@
 <div class="body-outer">
   <div class="body-inner">
     
+<article class="post-inner">
+  <div class="post-content-outer">
+    <div class="post-intro">
+      <div class="post-title animate__animated  animate__fadeInUp">去除桌面快捷图标</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">10月 20 2022</div>
+      
+    </div>
+    <div class="post-content-inner">
+      <div class="post-content-inner-space">
+
+      </div>
+      <div class="post-content-main animate__animated  animate__fadeInUp">
+        <!-- top型目录 -->
+        
+        <h2 id="去掉小箭头"><a href="#去掉小箭头" class="headerlink" title="去掉小箭头"></a>去掉小箭头</h2><pre><code class="bat">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&quot; /v 29 /d &quot;%systemroot%\system32\imageres.dll,197&quot; /t reg_sz /f
+taskkill /f /im explorer.exe
+attrib -s -r -h &quot;%userprofile%\AppData\Local\iconcache.db&quot;
+del &quot;%userprofile%\AppData\Local\iconcache.db&quot; /f /q
+start explorer
+pause
+</code></pre>
+<p>复制上面的代码。新建一个文本文件。粘贴后另存为.bat文件，然后以管理员身份打开。<br>ok！</p>
+<h2 id="恢复小箭头"><a href="#恢复小箭头" class="headerlink" title="恢复小箭头"></a>恢复小箭头</h2><pre><code class="bat">reg delete &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&quot; /v 29 /f
+taskkill /f /im explorer.exe
+attrib -s -r -h &quot;%userprofile%\AppData\Local\iconcache.db&quot;
+del &quot;%userprofile%\AppData\Local\iconcache.db&quot; /f /q
+start explorer
+pause
+</code></pre>
+<p>同理，将上述代码另存为.bat文件，管理员身份打开。就可恢复小箭头了  </p>
+
+        <!-- 分类文章 -->
+        
+      </div>
+      <div class="post-content-inner-space">
+        
+          <div class="space-toc-main animate__animated  animate__fadeInUp">
+            <ol class="space-toc"><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E5%8E%BB%E6%8E%89%E5%B0%8F%E7%AE%AD%E5%A4%B4"><span class="space-toc-text">去掉小箭头</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E6%81%A2%E5%A4%8D%E5%B0%8F%E7%AE%AD%E5%A4%B4"><span class="space-toc-text">恢复小箭头</span></a></li></ol>
+           </div>
+        
+      </div>
+   </div>
+    <!-- 评论 -->
     
-<section class="img-show-outer">
-    <section class="img-show-inner">
-          
-          
-          <div class="img-show-post">
-            <div class="img-show-post-cover">
-              <span class="lazyload-img-span">
-              <a  href="/2022/10/20/%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/">
-              
-                
-                <img data-src="https://imgse.com/i/xyLNz6" class="img-show-post-cover-class">
-              
-              </a>
-              </span>
-            </div>
-            <div class="img-show-post-intro">
-             <a  href="/2022/10/20/%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/">
-            <div class="img-show-post-title animate__animated  animate__fadeInUp">去除桌面快捷图标</div>
-            </a>
-            <div class="img-show-post-date animate__animated  animate__fadeInUp">10月 20 2022 </div>
-            </div>
-          </div>
-          
-         
-          <div class="img-show-post">
-            <div class="img-show-post-cover">
-              <span class="lazyload-img-span">
-              <a  href="/2022/10/20/helloworld/">
-              
-                
-                <img data-src="https://imgse.com/i/xyLNz6" class="img-show-post-cover-class">
-              
-              </a>
-              </span>
-            </div>
-            <div class="img-show-post-intro">
-             <a  href="/2022/10/20/helloworld/">
-            <div class="img-show-post-title animate__animated  animate__fadeInUp">hello world</div>
-            </a>
-            <div class="img-show-post-date animate__animated  animate__fadeInUp">10月 20 2022 </div>
-            </div>
-          </div>
-          
-         
-    </section>
-    
-</section>
-
-
-
+  </div>
+</article>
   </div>
 </div>
 

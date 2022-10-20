@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>去除桌面快捷图标</title>
+      <link href="/2022/10/20/%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/"/>
+      <url>/2022/10/20/%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/</url>
+      
+        <content type="html"><![CDATA[<h2 id="去掉小箭头"><a href="#去掉小箭头" class="headerlink" title="去掉小箭头"></a>去掉小箭头</h2><pre><code class="bat">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&quot; /v 29 /d &quot;%systemroot%\system32\imageres.dll,197&quot; /t reg_sz /ftaskkill /f /im explorer.exeattrib -s -r -h &quot;%userprofile%\AppData\Local\iconcache.db&quot;del &quot;%userprofile%\AppData\Local\iconcache.db&quot; /f /qstart explorerpause</code></pre><p>复制上面的代码。新建一个文本文件。粘贴后另存为.bat文件，然后以管理员身份打开。<br>ok！</p><h2 id="恢复小箭头"><a href="#恢复小箭头" class="headerlink" title="恢复小箭头"></a>恢复小箭头</h2><pre><code class="bat">reg delete &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&quot; /v 29 /ftaskkill /f /im explorer.exeattrib -s -r -h &quot;%userprofile%\AppData\Local\iconcache.db&quot;del &quot;%userprofile%\AppData\Local\iconcache.db&quot; /f /qstart explorerpause</code></pre><p>同理，将上述代码另存为.bat文件，管理员身份打开。就可恢复小箭头了  </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 美化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>hello world</title>
       <link href="/2022/10/20/helloworld/"/>
       <url>/2022/10/20/helloworld/</url>
