@@ -4,11 +4,24 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/1970/01/01/hello-world/"/>
-      <url>/1970/01/01/hello-world/</url>
+      <title>2020-10-20-helloworld</title>
+      <link href="/2022/10/20/2020-10-20-helloworld/"/>
+      <url>/2022/10/20/2020-10-20-helloworld/</url>
       
-        <content type="html"><![CDATA[<pre><code class="go">fmt.Println(&quot;Hello World&quot;)</code></pre>]]></content>
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hello world</title>
+      <link href="/2022/10/20/helloworld/"/>
+      <url>/2022/10/20/helloworld/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="go">    fmt.Println(&quot;Hello world!&quot;)</code></pre>]]></content>
       
       
       
