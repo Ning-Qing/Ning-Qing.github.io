@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  Hello World |    NingQing</title>
+  <title>  Dockerfile |    NingQing</title>
   <meta name="description" content="A minimalist theme for hexo.">
   <!-- 标签页图标 -->
   
@@ -120,7 +120,7 @@
 <article class="post-inner">
   <div class="post-content-outer">
     <div class="post-intro">
-      <div class="post-title animate__animated  animate__fadeInUp">hello world</div>
+      <div class="post-title animate__animated  animate__fadeInUp">Dockerfile</div>
       <div class="meta-intro animate__animated  animate__fadeInUp">10月 20 2022</div>
       
     </div>
@@ -131,7 +131,46 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <pre><code class="golang">    fmt.Println(&quot;Hello world!&quot;)
+        <pre><code class="Dockerfile"># 定义基础镜像版本
+ARG GO_VERSION=1.17.13
+ARG ALPINE_VERSION=3.16
+
+# 构建运行环境
+FROM alpine:$&#123;ALPINE_VERSION&#125; AS base
+# 换源，同步时区
+RUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&#39; /etc/apk/repositories
+RUN apk update &amp;&amp; apk add --no-cache tzdata \
+    &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone
+
+# 构建编译时环境
+FROM golang:$&#123;GO_VERSION&#125;-alpine$&#123;ALPINE_VERSION&#125; AS build
+
+# 设置go env
+ENV GOPATH=&quot;/go&quot; \
+    GO111MODULE=&quot;on&quot; \
+    GOPROXY=&quot;https://goproxy.cn&quot; \
+    CGO_ENABLED=&quot;0&quot;
+
+# 换源，安装编译依赖
+RUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&#39; /etc/apk/repositories
+RUN apk update &amp;&amp; apk add --no-cache \
+    git \
+    make
+
+COPY . /go/src/github.com/Ning-Qing/temple
+WORKDIR /go/src/github.com/Ning-Qing/temple
+RUN make build
+
+# 拷贝二进制文件
+FROM base
+
+WORKDIR /fabric-relayer
+COPY --from=build /go/src/github.com/Ning-Qing/temple/build/fabric-relayer ./temple
+ENTRYPOINT [&quot;./temple&quot;]
+
+# 使用CMD传参
+CMD [&quot;-h&quot;]
 </code></pre>
 
         <!-- 分类文章 -->
