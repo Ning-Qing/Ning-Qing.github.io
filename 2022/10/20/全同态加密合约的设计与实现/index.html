@@ -174,28 +174,24 @@
 <li>秘密分享、同态加密、差分隐私、混淆电路、不经意传输是密码学中的协议或者加密算法，被上层体系所依赖。</li>
 <li>安全多方计算、联邦学习本质上是用来处理实际的业务场景的体系，建立在密码学的基础之上。</li>
 </ul>
-
+<p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/2022/10/20/%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E5%90%88%E7%BA%A6%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B.png" >
+           data-src="https://imgse.com/i/x6SbE8" >
         </sapn>
-      
-
-<p>如果把数据的状态划分为静止、传输、操作三种，那么根本意义上的数据有效性应在在这三种状态下都得到保障。但就实际状况而言，严格的保障数据有效性付出的成本远不及收益，所以密码学通常都会考虑恶意行为。</p>
+      <br>如果把数据的状态划分为静止、传输、操作三种，那么根本意义上的数据有效性应在在这三种状态下都得到保障。但就实际状况而言，严格的保障数据有效性付出的成本远不及收益，所以密码学通常都会考虑恶意行为。</p>
 <ul>
 <li>静止态：指数据处于存储状态，例如存储在外部存储之中。</li>
 <li>传输态：指数据从一个位置转移到另一个位置的状态</li>
 <li>操作态：指数据正在被使用，进行计算</li>
 </ul>
 <p>比如区块链在数据的静止态保障了数据的安全性，https协议在数据的传输态的安全性，可信执行环境保障了数据在操作态的安全性。</p>
-<h2 id="同态加密"><a href="#同态加密" class="headerlink" title="同态加密"></a>同态加密</h2><p>同态加密：简单来说同态加密就是使得明文和密文在进行相同的运算后结果仍保持一致，<br>同态加密可以使得计算能在密文上进行</p>
-
+<h2 id="同态加密"><a href="#同态加密" class="headerlink" title="同态加密"></a>同态加密</h2><p>同态加密：简单来说同态加密就是使得明文和密文在进行相同的运算后结果仍保持一致，<br>同态加密可以使得计算能在密文上进行<br>
         <span class="lazyload-img-span">
         <img   
-           data-src="/2022/10/20/%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E5%90%88%E7%BA%A6%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86.png" >
+           data-src="https://imgse.com/i/x6SqUS" >
         </sapn>
-      
-
+      </p>
 <h3 id="同态加密的分类"><a href="#同态加密的分类" class="headerlink" title="同态加密的分类"></a>同态加密的分类</h3><ul>
 <li>部分同态加密：只能做无限次同态加法或者只能做无限次同态乘法操作（只能累加或者累乘）</li>
 <li>些许同态加密：可以进行有限次数的任意同态操作（可以做加法或者乘法，但是次数有限）</li>
@@ -264,232 +260,232 @@
 <li>总部使用私钥解密统计结果<br>
         <span class="lazyload-img-span">
         <img   
-           data-src="https://cdn.nlark.com/yuque/0/2022/png/22247166/1656297952608-b1b8f3b5-469c-4e22-9c9e-be231fc81773.png#clientId=udebf0db2-c71d-4&crop=0&crop=0&crop=1&crop=1&from=drop&id=uc0643c27&name=%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1.png&originHeight=1070&originWidth=919&originalType=binary&ratio=1&rotation=0&showTitle=false&size=99933&status=done&style=none&taskId=u8e0040fa-e88f-4fc7-a434-b82ded228cf&title=" >
+           data-src="https://imgse.com/i/x6S7Hf" >
         </sapn>
       <br>在整个过程中只有各分公司知道自己提交的内容，链上存储的数据都是密文，需要私钥进行解密，而私钥掌握在总部手中。</li>
 </ul>
-<h2 id="合约实现"><a href="#合约实现" class="headerlink" title="合约实现"></a>合约实现</h2><pre><code class="go">package main
+<h2 id="合约实现"><a href="#合约实现" class="headerlink" title="合约实现"></a>合约实现</h2><pre><code class="golang">package main
 
 import (
- &quot;fmt&quot;
+    &quot;fmt&quot;
 
- &quot;github.com/hyperledger/fabric-chaincode-go/shim&quot;
- pb &quot;github.com/hyperledger/fabric-protos-go/peer&quot;
- &quot;github.com/tuneinsight/lattigo/v3/bfv&quot;
- &quot;github.com/tuneinsight/lattigo/v3/rlwe&quot;
+    &quot;github.com/hyperledger/fabric-chaincode-go/shim&quot;
+    pb &quot;github.com/hyperledger/fabric-protos-go/peer&quot;
+    &quot;github.com/tuneinsight/lattigo/v3/bfv&quot;
+    &quot;github.com/tuneinsight/lattigo/v3/rlwe&quot;
 )
 
 type TurnoverCC struct&#123;&#125;
 
 func (c *TurnoverCC) Init(stub shim.ChaincodeStubInterface) pb.Response &#123;
- return shim.Success(nil)
+    return shim.Success(nil)
 &#125;
 
 func (c *TurnoverCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response &#123;
- args := stub.GetArgs()
+    args := stub.GetArgs()
 
- function := string(args[0])
+    function := string(args[0])
 
- args = args[1:]
+    args = args[1:]
 
- switch function &#123;
- case &quot;setPubKey&quot;:
-  err := setPubkey(stub, string(args[0]), args[1])
-  if err != nil &#123;
-   return shim.Error(err.Error())
-  &#125;
-  return shim.Success(nil)
- case &quot;getPubKey&quot;:
-  index := string(args[0])
-  payload, err := getPubKey(stub, index)
-  if err != nil &#123;
-   return shim.Error(err.Error())
-  &#125;
-  if payload == nil &#123;
-   return shim.Error(fmt.Sprintf(&quot;not found %s&quot;, index))
-  &#125;
-  return shim.Success(payload)
- case &quot;submit&quot;:
-  err := submit(stub, string(args[0]), string(args[1]), args[2])
-  if err != nil &#123;
-   return shim.Error(err.Error())
-  &#125;
-  return shim.Success(nil)
- case &quot;sum&quot;:
-  payload, err := sum(stub, string(args[0]))
-  if err != nil &#123;
-   return shim.Error(err.Error())
-  &#125;
-  return shim.Success(payload)
- &#125;
- return shim.Error(fmt.Sprintf(&quot;function %s is not found!&quot;, function))
+    switch function &#123;
+    case &quot;setPubKey&quot;:
+        err := setPubkey(stub, string(args[0]), args[1])
+        if err != nil &#123;
+            return shim.Error(err.Error())
+        &#125;
+        return shim.Success(nil)
+    case &quot;getPubKey&quot;:
+        index := string(args[0])
+        payload, err := getPubKey(stub, index)
+        if err != nil &#123;
+            return shim.Error(err.Error())
+        &#125;
+        if payload == nil &#123;
+            return shim.Error(fmt.Sprintf(&quot;not found %s&quot;, index))
+        &#125;
+        return shim.Success(payload)
+    case &quot;submit&quot;:
+        err := submit(stub, string(args[0]), string(args[1]), args[2])
+        if err != nil &#123;
+            return shim.Error(err.Error())
+        &#125;
+        return shim.Success(nil)
+    case &quot;sum&quot;:
+        payload, err := sum(stub, string(args[0]))
+        if err != nil &#123;
+            return shim.Error(err.Error())
+        &#125;
+        return shim.Success(payload)
+    &#125;
+    return shim.Error(fmt.Sprintf(&quot;function %s is not found!&quot;, function))
 &#125;
 
 func setPubkey(stub shim.ChaincodeStubInterface, index string, pub_key []byte) error &#123;
- return stub.PutState(index, pub_key)
+    return stub.PutState(index, pub_key)
 &#125;
 
 func getPubKey(stub shim.ChaincodeStubInterface, index string) ([]byte, error) &#123;
- return stub.GetState(index)
+    return stub.GetState(index)
 &#125;
 
 func submit(stub shim.ChaincodeStubInterface, index, key string, text []byte) error &#123;
- compositeKey, err := stub.CreateCompositeKey(&quot;indexs&quot;, []string&#123;index, key&#125;)
- if err != nil &#123;
-  return err
- &#125;
- return stub.PutState(compositeKey, text)
+    compositeKey, err := stub.CreateCompositeKey(&quot;indexs&quot;, []string&#123;index, key&#125;)
+    if err != nil &#123;
+        return err
+    &#125;
+    return stub.PutState(compositeKey, text)
 &#125;
 
 func sum(stub shim.ChaincodeStubInterface, index string) ([]byte, error) &#123;
- paramDef := bfv.PN13QP218
- paramDef.T = 0x3ee0001
- params, err := bfv.NewParametersFromLiteral(paramDef)
- if err != nil &#123;
-  return nil, err
- &#125;
+    paramDef := bfv.PN13QP218
+    paramDef.T = 0x3ee0001
+    params, err := bfv.NewParametersFromLiteral(paramDef)
+    if err != nil &#123;
+        return nil, err
+    &#125;
 
- evaluator := bfv.NewEvaluator(params, rlwe.EvaluationKey&#123;&#125;)
+    evaluator := bfv.NewEvaluator(params, rlwe.EvaluationKey&#123;&#125;)
 
- iterator, err := stub.GetStateByPartialCompositeKey(&quot;indexs&quot;, []string&#123;index&#125;)
- if err != nil &#123;
-  return nil, err
- &#125;
- res := new(bfv.Ciphertext)
- if iterator.HasNext() &#123;
-  raw, err := iterator.Next()
-  if err != nil &#123;
-   return nil, err
-  &#125;
-  err = res.UnmarshalBinary(raw.Value)
-  if err != nil &#123;
-   return nil, err
-  &#125;
- &#125;
- for iterator.HasNext() &#123;
-  raw, err := iterator.Next()
-  if err != nil &#123;
-   return nil, err
-  &#125;
-  text := new(bfv.Ciphertext)
-  err = text.UnmarshalBinary(raw.Value)
-  if err != nil &#123;
-   return nil, err
-  &#125;
-  evaluator.Add(res, text, res)
- &#125;
- return res.MarshalBinary()
+    iterator, err := stub.GetStateByPartialCompositeKey(&quot;indexs&quot;, []string&#123;index&#125;)
+    if err != nil &#123;
+        return nil, err
+    &#125;
+    res := new(bfv.Ciphertext)
+    if iterator.HasNext() &#123;
+        raw, err := iterator.Next()
+        if err != nil &#123;
+            return nil, err
+        &#125;
+        err = res.UnmarshalBinary(raw.Value)
+        if err != nil &#123;
+            return nil, err
+        &#125;
+    &#125;
+    for iterator.HasNext() &#123;
+        raw, err := iterator.Next()
+        if err != nil &#123;
+            return nil, err
+        &#125;
+        text := new(bfv.Ciphertext)
+        err = text.UnmarshalBinary(raw.Value)
+        if err != nil &#123;
+            return nil, err
+        &#125;
+        evaluator.Add(res, text, res)
+    &#125;
+    return res.MarshalBinary()
 &#125;
 
 func main() &#123;
- err := shim.Start(new(TurnoverCC))
- if err != nil &#123;
-  fmt.Printf(&quot;Error starting TurnoverCC chaincode: %s&quot;, err)
- &#125;
+    err := shim.Start(new(TurnoverCC))
+    if err != nil &#123;
+        fmt.Printf(&quot;Error starting TurnoverCC chaincode: %s&quot;, err)
+    &#125;
 &#125;
 </code></pre>
 <pre><code class="go">package main
 
 import (
- &quot;log&quot;
- &quot;testing&quot;
+    &quot;log&quot;
+    &quot;testing&quot;
 
- &quot;github.com/hyperledger/fabric-chaincode-go/shimtest&quot;
- &quot;github.com/tuneinsight/lattigo/v3/bfv&quot;
- &quot;github.com/tuneinsight/lattigo/v3/rlwe&quot;
+    &quot;github.com/hyperledger/fabric-chaincode-go/shimtest&quot;
+    &quot;github.com/tuneinsight/lattigo/v3/bfv&quot;
+    &quot;github.com/tuneinsight/lattigo/v3/rlwe&quot;
 )
 
 func TestTurnover(t *testing.T) &#123;
- // 生成参数
- paramDef := bfv.PN13QP218
- paramDef.T = 0x3ee0001
- params, err := bfv.NewParametersFromLiteral(paramDef)
- if err != nil &#123;
-  log.Fatalln(err)
- &#125;
+    // 生成参数
+    paramDef := bfv.PN13QP218
+    paramDef.T = 0x3ee0001
+    params, err := bfv.NewParametersFromLiteral(paramDef)
+    if err != nil &#123;
+        log.Fatalln(err)
+    &#125;
 
- // 生成密钥对
- kgen := bfv.NewKeyGenerator(params)
- priv_key, pub_key := kgen.GenKeyPair()
+    // 生成密钥对
+    kgen := bfv.NewKeyGenerator(params)
+    priv_key, pub_key := kgen.GenKeyPair()
 
- // 初始化链码
- cc := new(TurnoverCC)
- stub := shimtest.NewMockStub(&quot;turnover&quot;, cc)
- pubKeyArg, err := pub_key.MarshalBinary()
- if err != nil &#123;
-  log.Fatalln(err)
- &#125;
+    // 初始化链码
+    cc := new(TurnoverCC)
+    stub := shimtest.NewMockStub(&quot;turnover&quot;, cc)
+    pubKeyArg, err := pub_key.MarshalBinary()
+    if err != nil &#123;
+        log.Fatalln(err)
+    &#125;
 
- setEnve(stub, &quot;test&quot;, pubKeyArg)
+    setEnve(stub, &quot;test&quot;, pubKeyArg)
 
- submitData(stub, &quot;test&quot;, &quot;1&quot;, 2000)
- submitData(stub, &quot;test&quot;, &quot;2&quot;, 5000)
- submitData(stub, &quot;test&quot;, &quot;3&quot;, -3000)
+    submitData(stub, &quot;test&quot;, &quot;1&quot;, 2000)
+    submitData(stub, &quot;test&quot;, &quot;2&quot;, 5000)
+    submitData(stub, &quot;test&quot;, &quot;3&quot;, -3000)
 
- // 解密数据
- ciphertext := sumData(stub, &quot;test&quot;)
- decryptor := bfv.NewDecryptor(params, priv_key)
- text := decryptor.DecryptNew(ciphertext)
+    // 解密数据
+    ciphertext := sumData(stub, &quot;test&quot;)
+    decryptor := bfv.NewDecryptor(params, priv_key)
+    text := decryptor.DecryptNew(ciphertext)
 
- // 解码数据
- encoder := bfv.NewEncoder(params)
- res := encoder.DecodeIntNew(text)
- log.Println(res[0])
+    // 解码数据
+    encoder := bfv.NewEncoder(params)
+    res := encoder.DecodeIntNew(text)
+    log.Println(res[0])
 &#125;
 
 func setEnve(stub *shimtest.MockStub, index string, pubKeyArg []byte) &#123;
- res := stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;setPubKey&quot;), []byte(index), pubKeyArg&#125;)
- if res.Status == 500 &#123;
-  log.Println(res.Message)
- &#125;
+    res := stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;setPubKey&quot;), []byte(index), pubKeyArg&#125;)
+    if res.Status == 500 &#123;
+        log.Println(res.Message)
+    &#125;
 &#125;
 
 func sumData(stub *shimtest.MockStub, index string) *bfv.Ciphertext &#123;
- res := stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;sum&quot;), []byte(index)&#125;)
- ciphertext := new(bfv.Ciphertext)
- err := ciphertext.UnmarshalBinary(res.Payload)
- if err != nil &#123;
-  log.Fatalln(err)
- &#125;
- return ciphertext
+    res := stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;sum&quot;), []byte(index)&#125;)
+    ciphertext := new(bfv.Ciphertext)
+    err := ciphertext.UnmarshalBinary(res.Payload)
+    if err != nil &#123;
+        log.Fatalln(err)
+    &#125;
+    return ciphertext
 &#125;
 
 func submitData(stub *shimtest.MockStub, index, key string, data int64) &#123;
- // 生成参数
- paramDef := bfv.PN13QP218
- paramDef.T = 0x3ee0001
- params, err := bfv.NewParametersFromLiteral(paramDef)
- if err != nil &#123;
-  log.Fatalln(err)
- &#125;
- // 获取公钥
- res := stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;getPubKey&quot;), []byte(index)&#125;)
- if res.Status == 500 &#123;
-  log.Println(res.Message)
- &#125;
- var pubKey rlwe.PublicKey
- err = pubKey.UnmarshalBinary(res.Payload)
- if err != nil &#123;
-  log.Fatalln(err)
- &#125;
+    // 生成参数
+    paramDef := bfv.PN13QP218
+    paramDef.T = 0x3ee0001
+    params, err := bfv.NewParametersFromLiteral(paramDef)
+    if err != nil &#123;
+        log.Fatalln(err)
+    &#125;
+    // 获取公钥
+    res := stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;getPubKey&quot;), []byte(index)&#125;)
+    if res.Status == 500 &#123;
+        log.Println(res.Message)
+    &#125;
+    var pubKey rlwe.PublicKey
+    err = pubKey.UnmarshalBinary(res.Payload)
+    if err != nil &#123;
+        log.Fatalln(err)
+    &#125;
 
- text := bfv.NewPlaintext(params)
+    text := bfv.NewPlaintext(params)
 
- // 生成一个编码器,并将数据编码到文本中
- encoder := bfv.NewEncoder(params)
- encoder.Encode([]int64&#123;data&#125;, text)
+    // 生成一个编码器,并将数据编码到文本中
+    encoder := bfv.NewEncoder(params)
+    encoder.Encode([]int64&#123;data&#125;, text)
 
- // 生成公钥加密器,并加密文本
- encryptor := bfv.NewEncryptor(params, &amp;pubKey)
- ciphertext := encryptor.EncryptNew(text)
- raw, err := ciphertext.MarshalBinary()
- if err != nil &#123;
-  log.Fatalln(err)
- &#125;
- res = stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;submit&quot;), []byte(index), []byte(key), raw&#125;)
- if res.Status == 500 &#123;
-  log.Println(res.Message)
- &#125;
+    // 生成公钥加密器,并加密文本
+    encryptor := bfv.NewEncryptor(params, &amp;pubKey)
+    ciphertext := encryptor.EncryptNew(text)
+    raw, err := ciphertext.MarshalBinary()
+    if err != nil &#123;
+        log.Fatalln(err)
+    &#125;
+    res = stub.MockInvoke(&quot;1&quot;, [][]byte&#123;[]byte(&quot;submit&quot;), []byte(index), []byte(key), raw&#125;)
+    if res.Status == 500 &#123;
+        log.Println(res.Message)
+    &#125;
 &#125;
 </code></pre>
 
