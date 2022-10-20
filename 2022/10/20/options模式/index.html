@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  Blog |    NingQing</title>
+  <title>  Options模式 |    NingQing</title>
   <meta name="description" content="A minimalist theme for hexo.">
   <!-- 标签页图标 -->
   
@@ -119,50 +119,61 @@
 <div class="body-outer">
   <div class="body-inner">
     
+<article class="post-inner">
+  <div class="post-content-outer">
+    <div class="post-intro">
+      <div class="post-title animate__animated  animate__fadeInUp">options模式</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">10月 20 2022</div>
+      
+    </div>
+    <div class="post-content-inner">
+      <div class="post-content-inner-space">
 
-    <section class="archive-outer">
-    <section class="archive-inner">
+      </div>
+      <div class="post-content-main animate__animated  animate__fadeInUp">
+        <!-- top型目录 -->
         
-        
-        
-        
-            
-            
-        <div class="archive-name animate__animated  animate__fadeInUp">2022</div>
-        
-          <a  href="/2022/10/20/options%E6%A8%A1%E5%BC%8F/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">options模式</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/20/%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">去除桌面快捷图标</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/20/helloworld/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">hello world</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-    </section>
-</section>
+        <pre><code class="go">const (
+    DefaultHost = &quot;127.0.0.1&quot;
+    DefaultPort = &quot;8080&quot;
+)
 
+type Option func(c *Client)
 
+type Client struct &#123;
+    Host string
+    Port string
+&#125;
+
+func NewClient(options ...Option) *Client &#123;
+    c := &amp;Client&#123;
+        Host: DefaultHost,
+        Port: DefaultPort,
+    &#125;
+    for _, option := range options &#123;
+        option(c)
+    &#125;
+    return c
+&#125;
+
+func WitchHost(host string) Option &#123;
+    return func(c *Client) &#123;
+        c.Host = host
+    &#125;
+&#125;
+</code></pre>
+
+        <!-- 分类文章 -->
+        
+      </div>
+      <div class="post-content-inner-space">
+        
+      </div>
+   </div>
+    <!-- 评论 -->
+    
+  </div>
+</article>
   </div>
 </div>
 

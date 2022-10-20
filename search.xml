@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>options模式</title>
+      <link href="/2022/10/20/options%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2022/10/20/options%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="go">const (    DefaultHost = &quot;127.0.0.1&quot;    DefaultPort = &quot;8080&quot;)type Option func(c *Client)type Client struct &#123;    Host string    Port string&#125;func NewClient(options ...Option) *Client &#123;    c := &amp;Client&#123;        Host: DefaultHost,        Port: DefaultPort,    &#125;    for _, option := range options &#123;        option(c)    &#125;    return c&#125;func WitchHost(host string) Option &#123;    return func(c *Client) &#123;        c.Host = host    &#125;&#125;</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>去除桌面快捷图标</title>
       <link href="/2022/10/20/%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/"/>
       <url>/2022/10/20/%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/</url>
