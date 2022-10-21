@@ -139,6 +139,7 @@ GO_VERSION ?= 1.17.13
 ALPINE_VERSION ?= 3.16
 SUPPORTED_PLATFORMS = linux/arm64,linux/amd64
 
+export PKG_VERSION
 
 ARCH := $(shell arch)
 OS := $(shell uname -s)
