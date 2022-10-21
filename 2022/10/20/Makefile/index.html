@@ -198,8 +198,9 @@ image-relase:
 
 clean:
     @rm -rf build
+    @docker buildx ls | grep $(PKG_NAME)-builder &amp;&amp; docker buildx rm $(PKG_NAME)-builder || exit 0
 
-.PHONY: build run image image-relase
+.PHONY: build image image-relase clean
 </code></pre>
 
         <!-- 分类文章 -->
