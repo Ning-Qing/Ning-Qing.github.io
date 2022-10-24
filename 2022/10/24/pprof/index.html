@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  Blog |    NingQing</title>
+  <title>  Pprof |    NingQing</title>
   <meta name="description" content="NingQing Blog.">
   <!-- 标签页图标 -->
   
@@ -117,100 +117,86 @@
 <div class="body-outer">
   <div class="body-inner">
     
+<article class="post-inner">
+  <div class="post-content-outer">
+    <div class="post-intro">
+      <div class="post-title animate__animated  animate__fadeInUp">pprof</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">10月 24 2022</div>
+      
+    </div>
+    <div class="post-content-inner">
+      <div class="post-content-inner-space">
 
-    <section class="archive-outer">
-    <section class="archive-inner">
+      </div>
+      <div class="post-content-main animate__animated  animate__fadeInUp">
+        <!-- top型目录 -->
         
-        
-        
-        
-            
-            
-        <div class="archive-name animate__animated  animate__fadeInUp">2022</div>
-        
-          <a  href="/2022/10/24/pprof/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">pprof</div>
-            <div class="archive-post-date">10-24</div>
-            <!-- 10月 24 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/21/fabric%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E5%90%88%E7%BA%A6%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">fabric全同态加密合约的设计与实现</div>
-            <div class="archive-post-date">10-21</div>
-            <!-- 10月 21 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/21/linux/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">linux| &amp;&amp; ||</div>
-            <div class="archive-post-date">10-21</div>
-            <!-- 10月 21 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/20/Dockerfile/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">Dockerfile</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/20/Makefile/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">Makefile</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/20/options%E6%A8%A1%E5%BC%8F/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">options模式</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/20/windows%E5%8E%BB%E9%99%A4%E6%A1%8C%E9%9D%A2%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">windows去除桌面快捷图标</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-        
-          <a  href="/2022/10/20/helloworld/">
-          <div class="archive-post animate__animated  animate__fadeInUp">
-            <div class="archive-post-title">hello world</div>
-            <div class="archive-post-date">10-20</div>
-            <!-- 10月 20 -->
-          </div>
-          </a>
-        
-        
-    </section>
-</section>
+        <h2 id="开启pprof"><a href="#开启pprof" class="headerlink" title="开启pprof"></a>开启pprof</h2><pre><code class="golang">import (
+    &quot;net/http&quot;
+    _ &quot;net/http/pprof&quot;
+)
 
 
+func main()&#123;
+    http.ListenAndServe(&quot;:6060&quot;, nil)
+&#125;
+</code></pre>
+<p>see <code>127.0.0.1:6060/debug/pprof</code></p>
+<ul>
+<li>allocs 过去所有内存分配的样本</li>
+<li>block 导致同步原语阻塞的堆栈痕迹</li>
+<li>cmdline 当前程序的命令行调用</li>
+<li>goroutine 当前所有goroutine的堆栈痕迹</li>
+<li>heap 实时对象的内存分配样本。你可以指定gc GET参数，在进行堆采样之前运行GC。</li>
+<li>mutex 争夺突扰的持有者的堆栈痕迹<br>概况。CPU配置文件。你可以在seconds GET参数中指定持续时间。在你得到profile文件后，使用go tool pprof命令来调查该profile。</li>
+<li>threadcreate 导致创建新的操作系统线程的堆栈痕迹</li>
+<li>trace: 对当前程序的执行情况进行跟踪。你可以在秒的GET参数中指定持续时间。在你得到跟踪文件后，使用go tool trace命令来调查跟踪。</li>
+</ul>
+<h2 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h2><p><strong><a target="_blank" rel="noopener" href="https://graphviz.org/download/">点击这里查看如何安装graphviz</a></strong></p>
+<p><code>go tool pprof -http=:8000 http://10.1.40.70:31644/debug/pprof/&#123;cmd&#125;</code></p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p><code>go tool pprof -http=:8000 http://10.1.40.70:31644/debug/pprof/heap</code></p>
+
+        <!-- 分类文章 -->
+        
+      </div>
+      <div class="post-content-inner-space">
+        
+          <div class="space-toc-main animate__animated  animate__fadeInUp">
+            <ol class="space-toc"><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E5%BC%80%E5%90%AFpprof"><span class="space-toc-text">开启pprof</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="space-toc-text">可视化</span></a></li></ol>
+           </div>
+        
+      </div>
+   </div>
+    <!-- 评论 -->
+    
+    <div class="bottom-comments-outer">
+      <div class="bottom-comments-inner">
+        <!-- valine -->
+        
+        <!-- Gitalk -->
+        
+          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container" style="margin-top: 100px;"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '42b4441e34144e3d7f6c',
+        clientSecret: 'd0f44987dc8e8060cb1107fa74ec1fbd866d3d35',
+        id: window.location.pathname,
+        repo: 'Ning-Qing.github.io',
+        owner: 'Ning-Qing',
+        admin: 'Ning-Qing'
+    })
+    gitalk.render('gitalk-container')
+</script>
+        
+        <!-- livere -->
+        
+        </div>
+      </div>
+    
+  </div>
+</article>
   </div>
 </div>
 
