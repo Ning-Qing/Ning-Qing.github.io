@@ -1,0 +1,347 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>  K8s_loong64 |    NingQing</title>
+  <meta name="description" content="NingQing Blog.">
+  <!-- 标签页图标 -->
+  
+
+  <!-- 图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+  <!-- 动画库 -->
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fushaolei/cdn-white@1.0/css/animate.css"/>
+  
+  <!-- css文件 -->
+  
+<link rel="stylesheet" href="/css/white.css">
+
+  <!-- 代码高亮 -->
+  
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
+    
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+
+<div class="menu-outer">
+    <div class="menu-inner">
+      <div class="menu-site-name  animate__animated  animate__fadeInUp">
+        <a href="/">
+          NingQing
+        </a>
+        
+      </div>
+      <div class="menu-group">
+        <ul class="menu-ul">
+        
+          <a href="/" class="nav-link">
+            <li class="menu-li  animate__animated  animate__fadeInUp">
+              HOME
+            </li>
+          </a>
+        
+          <a href="/archives" class="nav-link">
+            <li class="menu-li  animate__animated  animate__fadeInUp">
+              BLOG
+            </li>
+          </a>
+        
+        
+        
+        <a href="/search">
+          <li class="menu-li  animate__animated  animate__fadeInUp">
+            <i class="ri-search-line"></i>
+          </li>
+        </a>
+        
+          <li class="menu-li animate__animated  animate__fadeInUp" id="mobile-menu">
+            <i class="ri-menu-line"></i>
+          </li>
+        
+        </ul>
+
+      </div>
+
+    </div>
+</div>
+<div id="mobile-main" class="animate__animated  animate__fadeIn">
+  <div class="mobile-menu-inner">
+    <div class="mobile-menu-site-name animate__animated  animate__fadeInUp">
+      <a href="/">
+        NingQing
+      </a>
+    </div>
+    <div class="mobile-menu-group" id="mobile-close">
+      <i class="ri-close-line"></i>
+    </div>
+
+  </div>
+
+  <div class="mobile-menu-div">
+  
+    <a href="/" class="mobile-nav-link">
+      <div class="mobile-menu-child animate__animated  animate__fadeInUp">
+        <span>HOME</span>
+      </div>
+    </a>
+  
+    <a href="/archives" class="mobile-nav-link">
+      <div class="mobile-menu-child animate__animated  animate__fadeInUp">
+        <span>BLOG</span>
+      </div>
+    </a>
+  
+  
+    <a href="/search">  
+      <div class="mobile-menu-child  animate__animated  animate__fadeInUp">
+        <i class="ri-search-line"></i>
+      </div>
+    </a>
+    
+  </div>
+
+
+</div>
+
+<div class="body-outer">
+  <div class="body-inner">
+    
+<article class="post-inner">
+  <div class="post-content-outer">
+    <div class="post-intro">
+      <div class="post-title animate__animated  animate__fadeInUp">k8s_loong64</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">10月 26 2022</div>
+      
+    </div>
+    <div class="post-content-inner">
+      <div class="post-content-inner-space">
+
+      </div>
+      <div class="post-content-main animate__animated  animate__fadeInUp">
+        <!-- top型目录 -->
+        
+        <h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><pre><code class="text">k8s: 1.20.11
+golang: go1.19 loong64
+</code></pre>
+<h2 id="不支持的架构"><a href="#不支持的架构" class="headerlink" title="不支持的架构"></a>不支持的架构</h2><pre><code class="text">!!! [0509 06:19:40] Unsupported host arch. Must be x86_64, 386, arm, arm64, s390x or ppc64le.
+!!! [0509 06:19:45] Unsupported host arch. Must be x86_64, 386, arm, arm64, s390x or ppc64le.
+</code></pre>
+<p>修改hack/lib/golang.sh文件</p>
+<ul>
+<li>KUBE_SUPPORTED_SERVER_PLATFORMS</li>
+<li>KUBE_SUPPORTED_NODE_PLATFORMS</li>
+<li>KUBE_SUPPORTED_CLIENT_PLATFORMS</li>
+<li>KUBE_SUPPORTED_TEST_PLATFORMS<br>添加上linux/loong64</li>
+</ul>
+<p>修改hack/lib/util.sh<br>在kube::util::host_arch() 里添加</p>
+<pre><code class="bash">loongarch64*)
+  host_arch=loongarch64
+  ;;
+</code></pre>
+<p>修改hack/local-up-cluster.sh文件</p>
+<pre><code class="bash">loongarch64*)
+  host_arch=loongarch64
+  ;;
+</code></pre>
+<h2 id="修改code-generator"><a href="#修改code-generator" class="headerlink" title="修改code-generator"></a>修改code-generator</h2><pre><code class="text">+++ [0509 06:58:10] Building go targets for linux/loong64:
+    ./vendor/k8s.io/code-generator/cmd/prerelease-lifecycle-gen
+find: &#39;rsync&#39;: No such file or directory
+find: &#39;rsync&#39;: No such file or directory
+Generating prerelease lifecycle code for 27 targets
+</code></pre>
+<h2 id="修改ginko"><a href="#修改ginko" class="headerlink" title="修改ginko"></a>修改ginko</h2><p>报错内容</p>
+<pre><code class="text"># k8s.io/kubernetes/vendor/github.com/onsi/ginkgo/internal/remote
+vendor/github.com/onsi/ginkgo/internal/remote/output_interceptor_unix.go:42:2: undefined: syscallDup
+vendor/github.com/onsi/ginkgo/internal/remote/output_interceptor_unix.go:43:2: undefined: syscallDup
+</code></pre>
+<p>修改<code>vendor/github.com/onsi/ginkgo/internal/remote/syscall_dup_unix.go</code></p>
+<pre><code class="golang">// +build !linux !arm64
+// +build !linux !riscv64
+// +build !linux !loong64
+// +build !windows
+// +build !solaris
+</code></pre>
+<p>拷贝 <code>vendor/github.com/onsi/ginkgo/internal/remote/syscall_dup_linux_arm64.go</code> 为<code>syscall_dup_linux_loong64.go</code>并修改</p>
+<pre><code class="golang">// +build linux,loong64
+</code></pre>
+<h2 id="替换sys-unix"><a href="#替换sys-unix" class="headerlink" title="替换sys/unix"></a>替换sys/unix</h2><p>报错内容</p>
+<pre><code class="text"># k8s.io/kubernetes/vendor/golang.org/x/sys/unix
+vendor/golang.org/x/sys/unix/affinity_linux.go:14:35: undefined: _NCPUBITS
+vendor/golang.org/x/sys/unix/affinity_linux.go:17:25: undefined: cpuMask
+vendor/golang.org/x/sys/unix/affinity_linux.go:50:27: undefined: cpuMask
+vendor/golang.org/x/sys/unix/sockcmsg_unix.go:33:9: undefined: Cmsghdr
+vendor/golang.org/x/sys/unix/ztypes_linux.go:22:11: undefined: Timespec
+vendor/golang.org/x/sys/unix/ztypes_linux.go:23:11: undefined: Timespec
+vendor/golang.org/x/sys/unix/ztypes_linux.go:1112:12: undefined: SockaddrStorage
+vendor/golang.org/x/sys/unix/ztypes_linux.go:2284:8: undefined: Timespec
+vendor/golang.org/x/sys/unix/ztypes_linux.go:2748:8: undefined: TIPCSubscr
+vendor/golang.org/x/sys/unix/ztypes_linux.go:2968:10: undefined: PPSKInfo
+vendor/golang.org/x/sys/unix/affinity_linux.go:50:27: too many errors
+</code></pre>
+<pre><code class="bash">go install golang.org/x/sys@latest
+cp -r $&#123;GOPATH&#125;/pkg/mod/golang.org/x/sys@&#123;latest&#125;/unix vendor/golang.org/x/sys/
+</code></pre>
+<h2 id="替换net-internal-socket-net-ipv4-net-ipv6"><a href="#替换net-internal-socket-net-ipv4-net-ipv6" class="headerlink" title="替换net/internal/socket net/ipv4 net/ipv6"></a>替换net/internal/socket net/ipv4 net/ipv6</h2><p>报错内容</p>
+<pre><code class="text"># k8s.io/kubernetes/vendor/golang.org/x/net/internal/socket
+vendor/golang.org/x/net/internal/socket/mmsghdr_unix.go:11:17: undefined: mmsghdr
+vendor/golang.org/x/net/internal/socket/cmsghdr.go:9:10: undefined: cmsghdr
+vendor/golang.org/x/net/internal/socket/cmsghdr.go:10:10: undefined: cmsghdr
+vendor/golang.org/x/net/internal/socket/cmsghdr.go:11:10: undefined: cmsghdr
+vendor/golang.org/x/net/internal/socket/msghdr_linux.go:9:10: undefined: msghdr
+vendor/golang.org/x/net/internal/socket/msghdr_linux.go:9:28: undefined: iovec
+vendor/golang.org/x/net/internal/socket/msghdr_linux.go:23:10: undefined: msghdr
+vendor/golang.org/x/net/internal/socket/msghdr_linux.go:30:10: undefined: msghdr
+vendor/golang.org/x/net/internal/socket/msghdr_linux.go:34:10: undefined: msghdr
+vendor/golang.org/x/net/internal/socket/sys_linux.go:14:31: undefined: mmsghdr
+vendor/golang.org/x/net/internal/socket/sys_linux.go:14:31: too many errors
+
+# k8s.io/kubernetes/vendor/golang.org/x/net/ipv4
+vendor/golang.org/x/net/ipv4/icmp.go:34:2: undefined: icmpFilter
+vendor/golang.org/x/net/ipv4/icmp_linux.go:7:10: undefined: icmpFilter
+vendor/golang.org/x/net/ipv4/icmp_linux.go:11:10: undefined: icmpFilter
+vendor/golang.org/x/net/ipv4/icmp_linux.go:15:10: undefined: icmpFilter
+vendor/golang.org/x/net/ipv4/icmp_linux.go:23:10: undefined: icmpFilter
+vendor/golang.org/x/net/ipv4/sys_linux.go:19:19: undefined: sysIP_TTL
+vendor/golang.org/x/net/ipv4/sys_linux.go:20:19: undefined: sysIP_PKTINFO
+vendor/golang.org/x/net/ipv4/sys_linux.go:20:34: undefined: sizeofInetPktinfo
+vendor/golang.org/x/net/ipv4/sys_linux.go:24:79: undefined: sysIP_TOS
+vendor/golang.org/x/net/ipv4/sys_linux.go:25:79: undefined: sysIP_TTL
+vendor/golang.org/x/net/ipv4/sys_linux.go:25:79: too many errors
+
+# k8s.io/kubernetes/vendor/golang.org/x/net/ipv6
+vendor/golang.org/x/net/ipv6/icmp.go:37:2: undefined: icmpv6Filter
+vendor/golang.org/x/net/ipv6/icmp_linux.go:7:10: undefined: icmpv6Filter
+vendor/golang.org/x/net/ipv6/icmp_linux.go:11:10: undefined: icmpv6Filter
+vendor/golang.org/x/net/ipv6/icmp_linux.go:15:10: undefined: icmpv6Filter
+vendor/golang.org/x/net/ipv6/icmp_linux.go:25:10: undefined: icmpv6Filter
+vendor/golang.org/x/net/ipv6/sys_linux.go:19:21: undefined: sysIPV6_TCLASS
+vendor/golang.org/x/net/ipv6/sys_linux.go:20:21: undefined: sysIPV6_HOPLIMIT
+vendor/golang.org/x/net/ipv6/sys_linux.go:21:21: undefined: sysIPV6_PKTINFO
+vendor/golang.org/x/net/ipv6/sys_linux.go:21:38: undefined: sizeofInet6Pktinfo
+vendor/golang.org/x/net/ipv6/sys_linux.go:22:21: undefined: sysIPV6_PATHMTU
+vendor/golang.org/x/net/ipv6/sys_linux.go:22:21: too many errors
+</code></pre>
+<pre><code class="bash">go install golang.org/x/net@latest
+cp -r $&#123;GOPATH&#125;/pkg/mod/golang.org/x/net@&#123;latest&#125;/internal/socket vendor/golang.org/x/net/internal
+cp -r $&#123;GOPATH&#125;/pkg/mod/golang.org/x/net@&#123;latest&#125;/ipv4 vendor/golang.org/x/net
+cp -r $&#123;GOPATH&#125;/pkg/mod/golang.org/x/net@&#123;latest&#125;/ipv6 vendor/golang.org/x/net
+</code></pre>
+<h2 id="修改etcd"><a href="#修改etcd" class="headerlink" title="修改etcd"></a>修改etcd</h2><p>报错内容</p>
+<pre><code class="text">vendor/go.etcd.io/bbolt/db.go:127:13: undeclared name maxMapSize for array length
+vendor/go.etcd.io/bbolt/db.go:400:12: undefined: maxMapSize
+vendor/go.etcd.io/bbolt/db.go:418:10: undefined: maxMapSize
+vendor/go.etcd.io/bbolt/db.go:419:8: undefined: maxMapSize
+vendor/go.etcd.io/bbolt/db.go:885:2: pos declared but not used
+vendor/go.etcd.io/bbolt/bolt_unix.go:66:15: undeclared name maxMapSize for array length
+vendor/go.etcd.io/bbolt/tx.go:533:12: undefined: maxAllocSize
+vendor/go.etcd.io/bbolt/tx.go:534:10: undefined: maxAllocSize
+vendor/go.etcd.io/bbolt/unsafe.go:27:12: undeclared name maxAllocSize for array length
+</code></pre>
+<p>拷贝 <code>vendor/go.etcd.io/bbolt/bolt_arm64.go</code>为<code>vendor/go.etcd.io/bbolt/bolt_loong64.go</code> 并修改</p>
+<pre><code class="golang">// +build loong64
+</code></pre>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p><code>KUBE_BUILD_PLATFORMS=linux/loong64 make all</code></p>
+
+        <!-- 分类文章 -->
+        
+      </div>
+      <div class="post-content-inner-space">
+        
+          <div class="space-toc-main animate__animated  animate__fadeInUp">
+            <ol class="space-toc"><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E7%89%88%E6%9C%AC"><span class="space-toc-text">版本</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="space-toc-text">不支持的架构</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E4%BF%AE%E6%94%B9code-generator"><span class="space-toc-text">修改code-generator</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E4%BF%AE%E6%94%B9ginko"><span class="space-toc-text">修改ginko</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E6%9B%BF%E6%8D%A2sys-unix"><span class="space-toc-text">替换sys&#x2F;unix</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E6%9B%BF%E6%8D%A2net-internal-socket-net-ipv4-net-ipv6"><span class="space-toc-text">替换net&#x2F;internal&#x2F;socket net&#x2F;ipv4 net&#x2F;ipv6</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E4%BF%AE%E6%94%B9etcd"><span class="space-toc-text">修改etcd</span></a></li><li class="space-toc-item space-toc-level-2"><a class="space-toc-link" href="#%E7%BC%96%E8%AF%91"><span class="space-toc-text">编译</span></a></li></ol>
+           </div>
+        
+      </div>
+   </div>
+    <!-- 评论 -->
+    
+    <div class="bottom-comments-outer">
+      <div class="bottom-comments-inner">
+        <!-- valine -->
+        
+        <!-- Gitalk -->
+        
+          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container" style="margin-top: 100px;"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '42b4441e34144e3d7f6c',
+        clientSecret: 'd0f44987dc8e8060cb1107fa74ec1fbd866d3d35',
+        id: window.location.pathname,
+        repo: 'Ning-Qing.github.io',
+        owner: 'Ning-Qing',
+        admin: 'Ning-Qing'
+    })
+    gitalk.render('gitalk-container')
+</script>
+        
+        <!-- livere -->
+        
+        </div>
+      </div>
+    
+  </div>
+</article>
+  </div>
+</div>
+
+
+
+<!-- 如果是home模式的话，不在首页就显示footer，如果不是home模式的话 所有都显示footer -->
+
+  <div class="footer-outer animate__animated  animate__fadeInUp">
+    <div class="footer-inner">
+    <div class="footer-text">
+    <p>不卑不亢,有所热爱.</p>
+
+    </div>
+    <div class="footer-contact">
+    <ul class="footer-ul">
+        
+        <li class="footer-li">
+            <a href="https://github.com/Ning-Qing" target="_blank">
+                <i class="ri-github-line"></i>
+            </a>
+        </li>
+        
+        <li class="footer-li">
+            <a href="mailto:2582820807@qq.com" target="_blank">
+                <i class="ri-mail-line"></i>
+            </a>
+        </li>
+        
+    </ul>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="/js/white.js"></script>
+
+
+
+    
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+      <script>hljs.initHighlightingOnLoad();</script>
+    
+
+</body>
+</html>
